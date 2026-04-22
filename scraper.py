@@ -2,17 +2,21 @@ import requests
 import json
 import sys
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-ADZUNA_APP_ID = os.getenv("ADZUNA_APP_ID")
-ADZUNA_APP_KEY = os.getenv("ADZUNA_APP_KEY")
+try:
+    import streamlit as st
+    ADZUNA_APP_ID = st.secrets["ADZUNA_APP_ID"]
+    ADZUNA_APP_KEY = st.secrets["ADZUNA_APP_KEY"]
+except:
+    from dotenv import load_dotenv
+    load_dotenv()
+    ADZUNA_APP_ID = os.getenv("ADZUNA_APP_ID")
+    ADZUNA_APP_KEY = os.getenv("ADZUNA_APP_KEY")
 
 
 def scrape_indeed(query: str, location: str, max_jobs: int = 20) -> list[dict]:
-    url = f"https://api.adzuna.com/v1/api/jobs/be/search/1"
-    
+    url = "https://api.adzuna.com/v1/api/jobs/be/search/1"
+
     params = {
         "app_id": ADZUNA_APP_ID,
         "app_key": ADZUNA_APP_KEY,
