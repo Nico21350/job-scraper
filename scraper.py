@@ -14,7 +14,16 @@ except:
     ADZUNA_APP_KEY = os.getenv("ADZUNA_APP_KEY")
 
 
-def scrape_indeed(query: str, location: str, max_jobs: int = 20) -> list[dict]:
+def scrape_indeed(query: str, location: str, max_jobs: int = 20, distance: int = 25) -> list[dict]:
+    """
+    Recherche des offres via l'API Adzuna (Belgique).
+    
+    Args:
+        query: Intitule du poste recherche
+        location: Ville de recherche
+        max_jobs: Nombre maximum d'offres a retourner
+        distance: Rayon de recherche en km autour de la ville (0 = ville exacte)
+    """
     url = "https://api.adzuna.com/v1/api/jobs/be/search/1"
 
     params = {
@@ -25,6 +34,10 @@ def scrape_indeed(query: str, location: str, max_jobs: int = 20) -> list[dict]:
         "results_per_page": max_jobs,
         "content-type": "application/json"
     }
+    
+    # N'ajoute distance que si > 0 (sinon recherche stricte sur la ville)
+    if distance > 0:
+        params["distance"] = distance
 
     jobs = []
 
@@ -49,15 +62,16 @@ def scrape_indeed(query: str, location: str, max_jobs: int = 20) -> list[dict]:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
+    if len(sys.argv) >= 4:
         query = sys.argv[1]
         location = sys.argv[2]
         max_jobs = int(sys.argv[3])
-        results = scrape_indeed(query, location, max_jobs)
+        distance = int(sys.argv[4]) if len(sys.argv) >= 5 else 25
+        results = scrape_indeed(query, location, max_jobs, distance)
         sys.stdout.write(json.dumps(results))
         sys.stdout.flush()
     else:
-        results = scrape_indeed("data analyst", "Bruxelles", max_jobs=5)
+        results = scrape_indeed("comptable", "Nivelles", max_jobs=10, distance=25)
+        print(f"\n{len(results)} offres trouvees pour 'comptable' a Nivelles (+25km) :\n")
         for job in results:
-            print(job)
-            
+            print(f"  - {job['titre']} @ {job['entreprise']} ({job['lieu']})")

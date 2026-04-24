@@ -26,120 +26,196 @@ st.markdown("""
 }
 
 .block-container { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
-.stApp { background: #f4f3ee !important; }
+.stApp { background: #ffffff !important; }
 [data-testid="stVerticalBlock"] { gap: 0 !important; }
 
-/* ── NAVBAR ── */
+/* ═══════════════════════════════════════════════════
+   NAVBAR — frosted glass, léger
+   ═══════════════════════════════════════════════════ */
 .navbar {
-    background: #111;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 0 3rem;
     height: 58px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(14,165,233,0.08);
 }
-.nav-logo { font-size: 1.15rem; font-weight: 800; color: white; letter-spacing: -0.3px; }
-.nav-logo span { color: #a78bfa; }
+.nav-logo {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.3px;
+}
+.nav-logo span { color: #0ea5e9; }
 .nav-pill {
-    background: rgba(255,255,255,0.1);
-    border-radius: 20px; padding: 0.25rem 0.9rem;
-    font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.7);
+    background: rgba(245,158,11,0.12);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #b45309;
     display: flex; align-items: center; gap: 0.4rem;
 }
 .live-dot {
-    width: 6px; height: 6px; background: #4ade80;
+    width: 6px; height: 6px; background: #f59e0b;
     border-radius: 50%; animation: pulse 2s infinite;
+    box-shadow: 0 0 0 0 rgba(245,158,11,0.5);
 }
 @keyframes pulse {
-    0%,100% { opacity:1; transform:scale(1); }
-    50%      { opacity:0.4; transform:scale(1.4); }
+    0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 0 0 rgba(245,158,11,0.6); }
+    50%      { opacity:0.7; transform:scale(1.2); box-shadow: 0 0 0 6px rgba(245,158,11,0); }
 }
 
-/* ── HERO ── */
+/* ═══════════════════════════════════════════════════
+   HERO — gradient bleu plus profond, plus grand
+   ═══════════════════════════════════════════════════ */
 .hero-wrap {
-    background: #111;
-    padding: 3rem 3rem 2rem;
+    position: relative;
+    background: linear-gradient(-45deg, #0369a1, #0284c7, #0ea5e9, #0369a1);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    padding: 5.5rem 3rem 4.5rem;
+    overflow: hidden;
 }
+@keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+/* Overlay subtil sur le hero pour texture */
+.hero-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 45%),
+                      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 45%);
+    pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 2; }
+
 .hero-h1 {
-    font-size: 3.8rem; font-weight: 800;
-    letter-spacing: -2.5px; line-height: 1.02;
-    color: white; margin: 0 0 0.5rem;
+    font-size: 5.8rem;
+    font-weight: 800;
+    letter-spacing: -3.5px;
+    line-height: 0.98;
+    color: white;
+    margin: 0 0 1.2rem;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.15);
 }
-.hero-h1 em { font-style: normal; color: #a78bfa; }
+.hero-h1 em {
+    font-style: normal;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
+}
+.hero-h1 em::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background: rgba(255,255,255,0.22);
+    z-index: -1;
+    border-radius: 4px;
+}
 .hero-sub {
-    font-size: 0.92rem; color: rgba(255,255,255,0.5);
-    line-height: 1.6; margin: 0; white-space: nowrap;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
 }
 
-/* ── FORM — dark bg, no border ── */
+/* ═══════════════════════════════════════════════════
+   FORM — blanc, bordure bleu ciel
+   ═══════════════════════════════════════════════════ */
 [data-testid="stForm"] {
-    background: #111 !important;
+    background: #ffffff !important;
     border: none !important;
-    box-shadow: none !important;
+    box-shadow: 0 4px 20px rgba(14,165,233,0.08) !important;
     padding: 2rem 3rem 2.5rem !important;
     margin: 0 !important;
-    border-bottom: 1px solid #2a2a2a !important;
+    border-bottom: 1px solid #e0f2fe !important;
 }
 
-/* ── NATIVE STREAMLIT LABELS — styled white/uppercase inside form ── */
+/* Labels du form — bleu vif */
 [data-testid="stForm"] [data-testid="stWidgetLabel"] {
     display: block !important;
-    font-size: 0.6rem !important;
-    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
     text-transform: uppercase !important;
-    letter-spacing: 1.5px !important;
-    color: rgba(255,255,255,0.35) !important;
-    margin-bottom: 0.3rem !important;
+    letter-spacing: 1.8px !important;
+    color: #0ea5e9 !important;
+    margin-bottom: 0.5rem !important;
 }
 [data-testid="stForm"] [data-testid="stWidgetLabel"] p {
-    font-size: 0.6rem !important;
-    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
     text-transform: uppercase !important;
-    letter-spacing: 1.5px !important;
-    color: rgba(255,255,255,0.35) !important;
+    letter-spacing: 1.8px !important;
+    color: #0ea5e9 !important;
     margin: 0 !important;
 }
 
-/* ── TEXT INPUTS inside form — dark ── */
+/* Hide "Press Enter to submit form" instruction */
+[data-testid="InputInstructions"],
+[data-testid="stFormSubmitButton"] ~ [data-testid="InputInstructions"],
+div[class*="InputInstructions"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
+}
+
+/* Text inputs — blanc avec bordure bleu clair */
 [data-testid="stForm"] input[type="text"] {
-    background: #1e1e1e !important;
-    border: 1px solid #333 !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 10px !important;
-    color: #fff !important;
+    color: #0f172a !important;
     font-size: 0.9rem !important;
+    caret-color: #0ea5e9 !important;
 }
 [data-testid="stForm"] input[type="text"]::placeholder {
-    color: rgba(255,255,255,0.3) !important;
+    color: #94a3b8 !important;
 }
 [data-testid="stForm"] div[data-baseweb="input"] {
-    background: #1e1e1e !important;
-    border: 1px solid #333 !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 10px !important;
     box-shadow: none !important;
+    transition: all 0.2s !important;
 }
 [data-testid="stForm"] div[data-baseweb="input"]:focus-within {
-    border-color: #a78bfa !important;
+    border-color: #0ea5e9 !important;
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.15) !important;
+    background: #ffffff !important;
 }
 
-/* ══════════════════════════════════════════════════════════
-   SLIDER — thumb = étiquette, rail 100% violet
-   ══════════════════════════════════════════════════════════ */
-
-/* Rail complet — même couleur que la fill active, pas d'opacité */
+/* ═══════════════════════════════════════════════════
+   SLIDER — bleu ciel
+   ═══════════════════════════════════════════════════ */
 div[data-testid="stSlider"] .e2ups023,
 [data-testid="stForm"] div[data-testid="stSlider"] .e2ups023 {
-    background: #a78bfa !important;
+    background: #0ea5e9 !important;
     border-radius: 4px !important;
 }
-
-/* Fill active — identique au rail (seamless) */
 div[data-testid="stSlider"] .e2ups024,
 [data-testid="stForm"] div[data-testid="stSlider"] .e2ups024 {
-    background: #a78bfa !important;
+    background: #0ea5e9 !important;
 }
 
-/* Thumb cercle — transparent + pas de bordure visible :
-   l'étiquette flottante LE remplace visuellement */
+/* Thumb invisible */
 div[data-testid="stSlider"] .e2ups021,
 [data-testid="stForm"] div[data-testid="stSlider"] .e2ups021 {
     background: transparent !important;
@@ -149,8 +225,7 @@ div[data-testid="stSlider"] .e2ups021,
     height: 0 !important;
 }
 
-/* Étiquette positionnée SUR le rail, centrée sur le thumb,
-   ressemble à un bouton/curseur — remplace le rond */
+/* Thumb label = curseur visuel */
 div[data-testid="stSlider"] [data-testid="stSliderThumbValue"],
 [data-testid="stForm"] div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] {
     bottom: -0.05rem !important;
@@ -162,11 +237,9 @@ div[data-testid="stSlider"] [data-testid="stSliderThumbValue"],
     z-index: 10 !important;
     background: transparent !important;
 }
-
-/* Le container markdown devient le "thumb" visuel */
 div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] [data-testid="stMarkdownContainer"],
 [data-testid="stForm"] div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] [data-testid="stMarkdownContainer"] {
-    background: #a78bfa !important;
+    background: #0ea5e9 !important;
     border-radius: 50px !important;
     padding: 0.18rem 0.55rem !important;
     display: inline-flex !important;
@@ -174,13 +247,12 @@ div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] [data-testid="stM
     justify-content: center !important;
     width: fit-content !important;
     min-width: 28px !important;
-    box-shadow: 0 0 0 3px rgba(167,139,250,0.35), 0 2px 6px rgba(0,0,0,0.3) !important;
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.25), 0 2px 8px rgba(14,165,233,0.35) !important;
     cursor: grab !important;
 }
-
 div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] p,
 [data-testid="stForm"] div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] p {
-    color: #111 !important;
+    color: #ffffff !important;
     font-weight: 800 !important;
     font-size: 0.7rem !important;
     margin: 0 !important;
@@ -188,7 +260,7 @@ div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] p,
     background: transparent !important;
 }
 
-/* Tickbar — transparent, texte mauve */
+/* Tickbar */
 div[data-testid="stSlider"] [data-testid="stSliderTickBar"],
 div[data-testid="stSlider"] [data-testid="stSliderTickBar"] * {
     background: transparent !important;
@@ -198,121 +270,370 @@ div[data-testid="stSlider"] [data-testid="stSliderTickBar"] * {
     box-shadow: none !important;
 }
 div[data-testid="stSlider"] [data-testid="stSliderTickBar"] p {
-    color: #a78bfa !important;
+    color: #0ea5e9 !important;
     font-size: 0.72rem !important;
     font-weight: 700 !important;
     margin: 0 !important;
 }
 
-/* ══════════════════════════════════════════════════════════ */
+/* Force tout point noir / tick mark sombre sur le rail à devenir bleu ou invisible */
+div[data-testid="stSlider"] [role="slider"] ~ div,
+div[data-testid="stSlider"] div[style*="background"] {
+    background-color: #0ea5e9 !important;
+}
+/* Le petit dot noir au début du rail (tick de min) */
+div[data-testid="stSlider"] [data-testid="stTickBarMin"],
+div[data-testid="stSlider"] [data-testid="stTickBarMax"] {
+    background: transparent !important;
+    color: #0ea5e9 !important;
+}
+/* Nettoyage complet des éléments décoratifs du rail */
+div[data-testid="stSlider"] > div > div > div > div {
+    background-color: #0ea5e9 !important;
+}
 
-/* ── BUTTON — violet ── */
+/* ═══════════════════════════════════════════════════
+   BUTTON Rechercher — bleu vif plein
+   ═══════════════════════════════════════════════════ */
 [data-testid="stForm"] button,
 .stButton > button {
-    background: #a78bfa !important;
-    color: #111 !important;
+    background: #0ea5e9 !important;
+    color: #ffffff !important;
     border: none !important;
     border-radius: 10px !important;
     font-weight: 800 !important;
     font-size: 0.88rem !important;
-    padding: 0.65rem 1.4rem !important;
+    padding: 0.7rem 1.4rem !important;
     width: 100% !important;
     white-space: nowrap !important;
-    transition: background 0.2s !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 4px 12px rgba(14,165,233,0.35) !important;
 }
 [data-testid="stForm"] button:hover,
-.stButton > button:hover { background: #c4b5fd !important; }
-
-/* ── STATS STRIP ── */
-.stats-strip {
-    background: #111;
-    padding: 1.1rem 3rem;
-    display: flex; gap: 2rem; align-items: center;
-    border-bottom: 1px solid #222;
+.stButton > button:hover {
+    background: #0284c7 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(14,165,233,0.45) !important;
 }
-.stat-item { display: flex; align-items: baseline; gap: 0.5rem; }
-.stat-n { font-size: 1.8rem; font-weight: 800; color: #a78bfa; letter-spacing: -1px; }
+
+/* ═══════════════════════════════════════════════════
+   STATS STRIP — fond blanc, counter animé
+   ═══════════════════════════════════════════════════ */
+.stats-strip {
+    background: linear-gradient(to right, #f0f9ff, #ffffff);
+    padding: 1.4rem 3rem;
+    display: flex; gap: 2.5rem; align-items: center;
+    border-bottom: 1px solid #e0f2fe;
+}
+.stat-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    opacity: 0;
+    animation: slideUpFade 0.6s ease forwards;
+}
+.stat-item:nth-child(1) { animation-delay: 0.1s; }
+.stat-item:nth-child(3) { animation-delay: 0.25s; }
+.stat-item:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes slideUpFade {
+    0%   { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.stat-n {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0ea5e9;
+    letter-spacing: -1.2px;
+    display: inline-block;
+}
+
+/* Counter animé via CSS */
+.stat-n.counter {
+    animation: countUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes countUp {
+    0%   { transform: translateY(20px); opacity: 0; }
+    60%  { opacity: 1; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
 .stat-label-wrap { display: flex; flex-direction: column; }
-.stat-l { font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
-.stat-sub { font-size: 0.62rem; color: rgba(255,255,255,0.2); }
-.stat-sep { width: 1px; height: 30px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+.stat-l {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+.stat-sub { font-size: 0.68rem; color: #64748b; }
+.stat-sep {
+    width: 1px;
+    height: 34px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
 
-/* ── MAIN ── */
-.main-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; }
+/* ═══════════════════════════════════════════════════
+   MAIN
+   ═══════════════════════════════════════════════════ */
+.main-wrap { max-width: 1280px; margin: 0 auto; padding: 1.2rem 3rem 4rem; }
 
-/* ── SIDEBAR BOXES ── */
+/* ═══════════════════════════════════════════════════
+   SIDEBAR BOXES
+   ═══════════════════════════════════════════════════ */
 .sb-box {
-    background: white; border: 1px solid #e8e6e0;
-    border-radius: 14px; padding: 1.2rem 1.3rem; margin-bottom: 0.8rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 0.8rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.sb-box:hover {
+    border-color: #7dd3fc;
+    box-shadow: 0 4px 16px rgba(14,165,233,0.08);
 }
 .sb-title {
-    font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1.5px; color: #aaa; margin-bottom: 0.7rem;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #0ea5e9;
+    margin-bottom: 0.7rem;
 }
 div[data-testid="stSelectbox"] > div > div {
-    background: #f4f3ee !important;
-    border: 1px solid #e0ddd6 !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 8px !important;
     font-size: 0.85rem !important;
 }
-/* Sidebar text inputs — beige (outside form) */
 .main-wrap input[type="text"] {
-    background: #f4f3ee !important;
-    border: 1px solid #e0ddd6 !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 8px !important;
-    color: #111 !important;
+    color: #0f172a !important;
     font-size: 0.85rem !important;
 }
 
-/* ── JOB CARDS ── */
+/* ═══════════════════════════════════════════════════
+   JOB CARDS — staggered reveal
+   ═══════════════════════════════════════════════════ */
 .job-card {
-    background: white; border: 1px solid #e8e6e0;
-    border-radius: 16px; overflow: hidden;
-    display: flex; margin-bottom: 0.75rem;
-    transition: transform 0.15s, box-shadow 0.15s;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 0.75rem;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    opacity: 0;
+    animation: cardReveal 0.5s ease forwards;
 }
-.job-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+@keyframes cardReveal {
+    0%   { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+/* Staggered delay — les 20 premières cartes ont un délai progressif */
+.job-card:nth-child(1)  { animation-delay: 0.05s; }
+.job-card:nth-child(2)  { animation-delay: 0.10s; }
+.job-card:nth-child(3)  { animation-delay: 0.15s; }
+.job-card:nth-child(4)  { animation-delay: 0.20s; }
+.job-card:nth-child(5)  { animation-delay: 0.25s; }
+.job-card:nth-child(6)  { animation-delay: 0.30s; }
+.job-card:nth-child(7)  { animation-delay: 0.35s; }
+.job-card:nth-child(8)  { animation-delay: 0.40s; }
+.job-card:nth-child(9)  { animation-delay: 0.45s; }
+.job-card:nth-child(10) { animation-delay: 0.50s; }
+.job-card:nth-child(11) { animation-delay: 0.55s; }
+.job-card:nth-child(12) { animation-delay: 0.60s; }
+.job-card:nth-child(13) { animation-delay: 0.65s; }
+.job-card:nth-child(14) { animation-delay: 0.70s; }
+.job-card:nth-child(15) { animation-delay: 0.75s; }
+.job-card:nth-child(n+16) { animation-delay: 0.80s; }
+
+.job-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(14,165,233,0.12);
+    border-color: #7dd3fc;
+}
 .card-stripe { width: 4px; flex-shrink: 0; }
-.s0{background:#a78bfa;} .s1{background:#34d399;}
-.s2{background:#60a5fa;} .s3{background:#fb923c;} .s4{background:#f472b6;}
+.s0{background:#0ea5e9;} .s1{background:#38bdf8;}
+.s2{background:#0284c7;} .s3{background:#7dd3fc;} .s4{background:#0369a1;}
 .card-content { padding: 1rem 1.3rem; flex:1; display:flex; align-items:center; gap:1rem; }
 .card-main { flex: 1; }
-.card-co { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#aaa; margin-bottom:.2rem; }
-.card-title { font-size:.95rem; font-weight:700; color:#111; line-height:1.3; margin-bottom:.3rem; }
-.card-loc { font-size:.78rem; color:#888; }
-.card-btn {
-    background:#111; color:white !important; text-decoration:none;
-    padding:.4rem 1rem; border-radius:20px; font-size:.72rem;
-    font-weight:700; white-space:nowrap; transition:background .15s;
+.card-co {
+    font-size:.62rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:#0ea5e9;
+    margin-bottom:.25rem;
 }
-.card-btn:hover { background:#a78bfa; color:#111 !important; }
+.card-title {
+    font-size:.95rem;
+    font-weight:700;
+    color:#0f172a;
+    line-height:1.3;
+    margin-bottom:.3rem;
+}
+.card-loc { font-size:.78rem; color:#64748b; }
+.card-btn {
+    background: transparent;
+    color: #0ea5e9 !important;
+    text-decoration: none;
+    padding: .4rem .8rem;
+    border-radius: 6px;
+    font-size: .78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: all .15s;
+}
+.card-btn:hover {
+    color: #0284c7 !important;
+    transform: translateX(3px);
+}
 
-/* ── BAR CHART ── */
+/* ═══════════════════════════════════════════════════
+   BAR CHART
+   ═══════════════════════════════════════════════════ */
 .chart-row { margin-bottom:.6rem; }
-.chart-lbl { font-size:.7rem; color:#666; margin-bottom:.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.chart-bg { background:#f0ede6; border-radius:4px; height:5px; }
-.chart-fill { height:5px; border-radius:4px; background:#a78bfa; }
+.chart-lbl {
+    font-size:.7rem;
+    color:#475569;
+    margin-bottom:.25rem;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.chart-bg { background:#e0f2fe; border-radius:4px; height:5px; }
+.chart-fill {
+    height:5px;
+    border-radius:4px;
+    background: linear-gradient(to right, #0ea5e9, #38bdf8);
+    animation: chartGrow 1s ease forwards;
+    transform-origin: left;
+    transform: scaleX(0);
+}
+@keyframes chartGrow {
+    to { transform: scaleX(1); }
+}
 
-/* ── EMPTY STATE ── */
-.empty-wrap { text-align:center; padding:6rem 2rem; }
-.empty-ico { font-size:3rem; margin-bottom:1rem; display:block; }
-.empty-t { font-size:1.4rem; font-weight:800; color:#222; margin-bottom:.5rem; letter-spacing:-.5px; }
-.empty-s { font-size:.9rem; color:#aaa; }
+/* ═══════════════════════════════════════════════════
+   EMPTY STATE — avec stats Adzuna
+   ═══════════════════════════════════════════════════ */
+.empty-wrap {
+    text-align:center;
+    padding: 1.5rem 2rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+}
+.empty-ico {
+    font-size: 3.2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    animation: floaty 3s ease-in-out infinite;
+}
+@keyframes floaty {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-8px); }
+}
+.empty-t {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: .5rem;
+    letter-spacing: -.8px;
+}
+.empty-s {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 2.5rem;
+}
 
-.section-t { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#aaa; margin-bottom:.8rem; }
+/* Stats cards état vide */
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+.hero-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.3rem 1.6rem;
+    min-width: 180px;
+    text-align: left;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.hero-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(14,165,233,0.12);
+    border-color: #7dd3fc;
+}
+.hero-stat-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+    display: block;
+}
+.hero-stat-label {
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #0ea5e9;
+    margin-bottom: 0.3rem;
+}
+.hero-stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+}
 
-/* Hide labels OUTSIDE form (sidebar filters) */
+.section-t {
+    font-size:.62rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:#0ea5e9;
+    margin-bottom:.8rem;
+}
+
+/* Hide labels outside form */
 .main-wrap [data-testid="stWidgetLabel"] { display: none !important; }
 .stTextInput, .stSelectbox, .stSlider { margin-bottom: 0 !important; }
 div[data-testid="stSlider"] > div { padding: 0 !important; }
 
+/* Download button — minimaliste bleu ciel */
 [data-testid="stDownloadButton"] > button {
-    background: #111 !important; color: white !important;
-    border: 1px solid #333 !important; border-radius: 8px !important;
-    font-size: .8rem !important; font-weight: 600 !important; width: 100% !important;
+    background: transparent !important;
+    color: #0ea5e9 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-size: 0.92rem !important;
+    font-weight: 700 !important;
+    padding: 0.4rem 0.8rem !important;
+    width: auto !important;
+    transition: all 0.15s !important;
 }
 [data-testid="stDownloadButton"] > button:hover {
-    background: #a78bfa !important; color: #111 !important; border-color: #a78bfa !important;
+    color: #0284c7 !important;
+    background: transparent !important;
+    transform: translateX(2px) !important;
+}
+[data-testid="stDownloadButton"] {
+    display: flex !important;
+    justify-content: flex-end !important;
+    margin-bottom: 0.8rem !important;
+}
+
+/* Spinner Streamlit - couleur bleu ciel */
+.stSpinner > div > div {
+    border-top-color: #0ea5e9 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -334,14 +655,16 @@ st.markdown("""
 # ── HERO ───────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="hero-wrap">
-  <div class="hero-h1">Trouvez votre<br><em>job idéal.</em></div>
-  <div class="hero-sub">Scrapez les offres du marché belge en temps réel &nbsp;·&nbsp; Filtrez &nbsp;·&nbsp; Exportez en CSV</div>
+  <div class="hero-inner">
+    <div class="hero-h1">Trouvez votre<br><em>job idéal</em></div>
+    <div class="hero-sub">Scrapez les offres du marché belge en temps réel &nbsp;·&nbsp; Filtrez &nbsp;·&nbsp; Exportez en CSV</div>
+  </div>
 </div>
 """, unsafe_allow_html=True)
 
 # ── SEARCH FORM ────────────────────────────────────────────────────────────────
 with st.form("search_form"):
-    c1, c2, c3, c4 = st.columns([3, 3, 2, 1.4])
+    c1, c2, c3, c4, c5 = st.columns([2.8, 2.8, 1.8, 1.8, 1.4])
     with c1:
         query = st.text_input(
             "INTITULÉ DU POSTE",
@@ -355,6 +678,8 @@ with st.form("search_form"):
     with c3:
         max_jobs = st.slider("NOMBRE D'OFFRES", min_value=5, max_value=50, value=20)
     with c4:
+        distance = st.slider("RAYON (KM)", min_value=0, max_value=100, value=25, step=5)
+    with c5:
         st.markdown('<div style="padding-top:1.8rem;">', unsafe_allow_html=True)
         launch = st.form_submit_button("Rechercher →")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -362,7 +687,7 @@ with st.form("search_form"):
 # ── SCRAPING ───────────────────────────────────────────────────────────────────
 if launch and query:
     with st.spinner("Analyse du marché en cours..."):
-        raw = scrape_indeed(query, location or "Belgique", max_jobs)
+        raw = scrape_indeed(query, location or "Belgique", max_jobs, distance)
         parsed = parse_jobs(raw)
         export_to_csv(parsed, filename="jobs_output.csv")
         st.session_state.jobs = parsed
@@ -380,7 +705,7 @@ if searched and jobs:
     st.markdown(f"""
     <div class="stats-strip">
       <div class="stat-item">
-        <div class="stat-n">{len(jobs)}</div>
+        <div class="stat-n counter">{len(jobs)}</div>
         <div class="stat-label-wrap">
           <div class="stat-l">offres</div>
           <div class="stat-sub">trouvées</div>
@@ -388,7 +713,7 @@ if searched and jobs:
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <div class="stat-n">{nb_co}</div>
+        <div class="stat-n counter">{nb_co}</div>
         <div class="stat-label-wrap">
           <div class="stat-l">entreprises</div>
           <div class="stat-sub">différentes</div>
@@ -396,15 +721,15 @@ if searched and jobs:
       </div>
       <div class="stat-sep"></div>
       <div class="stat-item">
-        <div class="stat-n">{nb_ci}</div>
+        <div class="stat-n counter">{nb_ci}</div>
         <div class="stat-label-wrap">
           <div class="stat-l">villes</div>
           <div class="stat-sub">couvertes</div>
         </div>
       </div>
-      <div style="margin-left:auto;font-size:.8rem;color:rgba(255,255,255,0.3);font-style:italic;">
+      <div style="margin-left:auto;font-size:.85rem;color:#64748b;font-style:italic;">
         Résultats pour &nbsp;
-        <span style="color:rgba(255,255,255,0.65);font-style:normal;font-weight:700;">"{q}"</span>
+        <span style="color:#0f172a;font-style:normal;font-weight:700;">"{q}"</span>
       </div>
     </div>
     """, unsafe_allow_html=True)
@@ -413,11 +738,44 @@ if searched and jobs:
 st.markdown('<div class="main-wrap">', unsafe_allow_html=True)
 
 if not searched:
+    # État vide avec stats Adzuna (Option A — chiffres figés honnêtes)
     st.markdown("""
     <div class="empty-wrap">
       <span class="empty-ico">🔍</span>
       <div class="empty-t">Prêt à scanner le marché</div>
       <div class="empty-s">Entrez un intitulé de poste et une ville, puis cliquez sur Rechercher</div>
+      <div class="hero-stats">
+        <div class="hero-stat-card">
+          <span class="hero-stat-icon">🌍</span>
+          <div class="hero-stat-label">Propulsé par</div>
+          <div class="hero-stat-value">API Adzuna</div>
+        </div>
+        <div class="hero-stat-card">
+          <span class="hero-stat-icon">📊</span>
+          <div class="hero-stat-label">Offres indexées</div>
+          <div class="hero-stat-value">1M+ en Europe</div>
+        </div>
+        <div class="hero-stat-card">
+          <span class="hero-stat-icon">🇧🇪</span>
+          <div class="hero-stat-label">Couverture</div>
+          <div class="hero-stat-value">Belgique complète</div>
+        </div>
+        <div class="hero-stat-card">
+          <span class="hero-stat-icon">⚡</span>
+          <div class="hero-stat-label">Export</div>
+          <div class="hero-stat-value">CSV instantané</div>
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+elif not jobs:
+    q = st.session_state.get("query", "")
+    st.markdown(f"""
+    <div class="empty-wrap">
+      <span class="empty-ico">😕</span>
+      <div class="empty-t">Aucune offre trouvée</div>
+      <div class="empty-s">Pas de résultats pour <strong>"{q}"</strong>. Essayez un autre intitulé, une autre ville, ou augmentez le rayon.</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -447,9 +805,6 @@ else:
         chart_html += '</div>'
         st.markdown(chart_html, unsafe_allow_html=True)
 
-        csv = df.to_csv(index=False).encode("utf-8-sig")
-        st.download_button("⬇ Exporter CSV", data=csv, file_name="myidealjob.csv", mime="text/csv")
-
     with col_main:
         df_f = df.copy()
         if filtre_co != "Toutes":
@@ -460,7 +815,13 @@ else:
             df_f = df_f[df_f["titre"].str.contains(search_text, case=False, na=False)]
 
         n = len(df_f)
-        st.markdown(f'<div class="section-t">{n} offre{"s" if n>1 else ""} trouvée{"s" if n>1 else ""}</div>', unsafe_allow_html=True)
+        
+        header_c1, header_c2 = st.columns([3, 1])
+        with header_c1:
+            st.markdown(f'<div class="section-t" style="padding-top:.6rem;">{n} offre{"s" if n>1 else ""} trouvée{"s" if n>1 else ""}</div>', unsafe_allow_html=True)
+        with header_c2:
+            csv = df_f.to_csv(index=False).encode("utf-8-sig")
+            st.download_button("⬇ Exporter CSV", data=csv, file_name="myidealjob.csv", mime="text/csv")
 
         colors = ["s0", "s1", "s2", "s3", "s4"]
         for i, (_, row) in enumerate(df_f.iterrows()):
@@ -485,16 +846,13 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ══════════════════════════════════════════════════════════════════════════════
 st.markdown("""
 <style>
-/* Rail = couleur pleine, pas de gap */
 div[data-testid="stSlider"] .e2ups023 {
-    background: #a78bfa !important;
+    background: #0ea5e9 !important;
     border-radius: 4px !important;
 }
 div[data-testid="stSlider"] .e2ups024 {
-    background: #a78bfa !important;
+    background: #0ea5e9 !important;
 }
-
-/* Thumb invisible — remplacé par l étiquette */
 div[data-testid="stSlider"] .e2ups021 {
     background: transparent !important;
     border: none !important;
@@ -502,8 +860,6 @@ div[data-testid="stSlider"] .e2ups021 {
     width: 0 !important;
     height: 0 !important;
 }
-
-/* Etiquette = nouveau thumb, positionne sur le rail */
 div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] {
     bottom: -0.05rem !important;
     position: absolute !important;
@@ -514,23 +870,54 @@ div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] {
     background: transparent !important;
 }
 div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] [data-testid="stMarkdownContainer"] {
-    background: #a78bfa !important;
+    background: #0ea5e9 !important;
     border-radius: 50px !important;
     padding: 0.18rem 0.55rem !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     min-width: 28px !important;
-    box-shadow: 0 0 0 3px rgba(167,139,250,0.35), 0 2px 6px rgba(0,0,0,0.3) !important;
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.25), 0 2px 8px rgba(14,165,233,0.35) !important;
     cursor: grab !important;
 }
 div[data-testid="stSlider"] [data-testid="stSliderThumbValue"] p {
-    color: #111 !important;
+    color: #ffffff !important;
     font-weight: 800 !important;
     font-size: 0.7rem !important;
     margin: 0 !important;
     line-height: 1 !important;
     background: transparent !important;
+}
+/* Force tick mark minimum (point noir au début) à disparaître ou être bleu */
+div[data-testid="stSlider"] > div > div > div > div {
+    background-color: #0ea5e9 !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   FIX CHIRURGICAL — segment noir sibling du rail
+   HTML structure :
+   <div class="st-ck st-cl ..."> (rail wrapper)
+     <div class="e2ups023">...</div> (rail principal)
+     <div class="st-au st-av st-aw st-ax st-cp st-cq st-b8 st-cr st-cs"></div> ← CE SEGMENT NOIR
+   </div>
+   Les classes st-au/st-av/st-cp/st-cq/st-cr/st-cs sont stables BaseWeb.
+   On cible spécifiquement ce sibling.
+   ═══════════════════════════════════════════════════ */
+div[data-testid="stSlider"] .st-au.st-av.st-aw,
+div[data-testid="stSlider"] .st-cp.st-cq.st-cr,
+div[data-testid="stSlider"] div[class*="st-cp"][class*="st-cq"] {
+    background: #0ea5e9 !important;
+    background-color: #0ea5e9 !important;
+}
+/* Hide "Press Enter to submit form" */
+[data-testid="InputInstructions"],
+div[class*="InputInstructions"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
 }
 </style>
 """, unsafe_allow_html=True)
